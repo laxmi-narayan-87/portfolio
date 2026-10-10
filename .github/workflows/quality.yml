@@ -2,7 +2,9 @@ name: Static site quality checks
 
 on:
   push:
-    branches: [portfolio]
+    branches:
+      - portfolio
+      - "fix/**"
   pull_request:
     branches: [portfolio]
   workflow_dispatch:
@@ -10,9 +12,14 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: portfolio-quality-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   quality:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Check out repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -20,5 +27,7 @@ jobs:
         uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
         with:
           python-version: "3.12"
-      - name: Validate portfolio structure and security baseline
+      - name: Run regression tests for the site checker
+        run: python -m unittest discover -s tests -v
+      - name: Validate portfolio HTML and security baseline
         run: python .github/scripts/check_site.py
