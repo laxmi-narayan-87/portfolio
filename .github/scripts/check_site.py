@@ -1,11 +1,10 @@
 from html.parser import HTMLParser
 from pathlib import Path
-import re
 import sys
 
 
 class SiteParser(HTMLParser):
-    """Collect the small set of HTML facts this static portfolio relies on."""
+    """Collect the HTML facts this static portfolio relies on."""
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -65,25 +64,25 @@ def validate_html(html):
     parser.feed(html)
     parser.close()
 
-    csp_match = re.search(
-        r'<meta\\s+[^>]*http-equiv=["\\']Content-Security-Policy["\\'][^>]*content=["\\']([^"\\']+)["\\']',
-        html,
-        re.IGNORECASE,
+    meta_by_name = {
+        item.get("name", "").lower(): item
+        for item in parser.meta
+        if item.get("name")
+    }
+    csp = next(
+        (
+            item.get("content", "")
+            for item in parser.meta
+            if item.get("http-equiv", "").lower() == "content-security-policy"
+        ),
+        "",
     )
-    # The page currently places http-equiv before content. This fallback also
-    # handles the reverse attribute order without relying on attribute order.
-    csp = ""
-    for item in parser.meta:
-        if item.get("http-equiv", "").lower() == "content-security-policy":
-            csp = item.get("content", "")
-            break
     directives = {}
     for directive in csp.split(";"):
         parts = directive.strip().split()
         if parts:
             directives[parts[0].lower()] = parts[1:]
 
-    ids_are_unique = len(parser.ids) == len(set(parser.ids))
     known_ids = set(parser.ids)
     broken_anchors = [
         link.get("href", "")
@@ -103,26 +102,36 @@ def validate_html(html):
         asset for asset in parser.assets
         if asset.strip().lower().startswith(("http://", "https://", "//"))
     ]
-    local_path_pattern = re.compile(
-        r"(?:[A-Za-z]:\\\\(?:Users|Documents and Settings)\\\\|/Users/)",
-        re.IGNORECASE,
+    backslash = chr(92)
+    local_windows_path = any(
+        f"{drive}:{backslash}Users{backslash}" in html
+        or f"{drive}:{backslash}Documents and Settings{backslash}" in html
+        for drive in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     )
-    remote_css_import = re.search(
-        r"@import\\s+(?:url\\()?\\s*['\\"]?(?:https?:)?//",
-        html,
-        re.IGNORECASE,
+    lower_html = html.lower()
+    remote_css_import = False
+    if "@import" in lower_html:
+        for statement in lower_html.split("@import")[1:]:
+            fragment = statement.split(";", 1)[0]
+            if "http://" in fragment or "https://" in fragment or "url(//" in fragment:
+                remote_css_import = True
+                break
+    remote_css_url = any(
+        marker in lower_html
+        for marker in ('url("http://', 'url("https://', "url('http://", "url('https://",
+                       "url(http://", "url(https://", 'url("//', "url('//", "url(//")
     )
-    inline_style_remote_url = re.search(
-        r"url\\(\\s*['\\"]?(?:https?:)?//",
-        html,
-        re.IGNORECASE,
+    html_attrs = next((attrs for tag, attrs in parser.tags if tag == "html"), {})
+    has_quality_section = any(
+        tag == "section" and attrs.get("id") == "quality"
+        for tag, attrs in parser.tags
     )
 
     return {
         "HTML5 doctype": html.lstrip().lower().startswith("<!doctype html>"),
-        "English document language": bool(re.search(r"<html\\b[^>]*\\blang=['\\"]en['\\"]", html, re.I)),
-        "responsive viewport": any(m.get("name", "").lower() == "viewport" for m in parser.meta),
-        "description metadata": any(m.get("name", "").lower() == "description" and m.get("content", "").strip() for m in parser.meta),
+        "English document language": html_attrs.get("lang", "").lower() == "en",
+        "responsive viewport": "viewport" in meta_by_name,
+        "description metadata": bool(meta_by_name.get("description", {}).get("content", "").strip()),
         "restrictive CSP meta policy": bool(csp)
             and directives.get("default-src") == ["'self'"]
             and directives.get("script-src") == ["'none'"]
@@ -135,15 +144,15 @@ def validate_html(html):
         "no embedded browsing/plugin content": parser.embedded_content == 0 and directives.get("object-src") == ["'none'"],
         "no inline event handlers": not parser.event_handlers,
         "no javascript URLs": not parser.javascript_urls,
-        "no external asset dependencies": not remote_assets and not remote_css_import and not inline_style_remote_url,
-        "no legacy local file paths": not local_path_pattern.search(html),
-        "no placeholder lorem ipsum": "lorem ipsum" not in html.lower(),
+        "no external asset dependencies": not remote_assets and not remote_css_import and not remote_css_url,
+        "no legacy local file paths": not local_windows_path and "/Users/" not in html,
+        "no placeholder lorem ipsum": "lorem ipsum" not in lower_html,
         "exactly one main landmark": len(parser.mains) == 1 and parser.mains[0].get("id") == "main",
         "skip link targets main": any(link.get("href") == "#main" for link in parser.skip_links) and "main" in known_ids,
-        "reduced-motion support": "prefers-reduced-motion:reduce" in html,
-        "quality/security section": bool(re.search(r'<section\\b[^>]*\\bid=["\\']quality["\\']', html)),
+        "reduced-motion support": "prefers-reduced-motion:reduce" in lower_html,
+        "quality/security section": has_quality_section,
         "contact email link": 'href="mailto:laxminarayan955459@gmail.com"' in html,
-        "unique element IDs": ids_are_unique,
+        "unique element IDs": len(parser.ids) == len(set(parser.ids)),
         "all in-page links resolve": not broken_anchors,
         "new-tab links use noopener and noreferrer": not unsafe_blank_links,
         "all images have alt attributes": all("alt" in img for img in parser.images),
