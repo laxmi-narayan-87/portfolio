@@ -10,7 +10,7 @@ Do not publish exploit details in a public issue. Contact the repository owner t
 - Never commit API keys, tokens, private keys, passwords, or production credentials.
 - Publish only personal contact details intentionally shared by the owner.
 - Do not add analytics, third-party scripts, database access, or forms without a clear need and security review.
-- Configure security response headers at the hosting layer. The in-document CSP is defense in depth; it cannot replace HTTP headers such as frame-ancestors, HSTS, X-Content-Type-Options, and Referrer-Policy.
+- Configure security response headers at the hosting layer where supported. The in-document CSP is defense in depth; it cannot replace HTTP headers such as frame-ancestors, HSTS, X-Content-Type-Options, and Referrer-Policy. GitHub Pages does not expose arbitrary per-site response-header configuration, so this repository must not claim those headers are enforced unless hosting changes.
 - Review changes for accessibility, broken links, and unexpected external requests before release.
 
 A security policy is not a certification or a guarantee that the site is vulnerability-free.
