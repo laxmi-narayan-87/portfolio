@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="title desc">
+<title id="title">Inspect the interface</title><desc id="desc">A small black figure examines a browser window with a magnifying glass, inspecting text, layout, and interaction flow.</desc>
+<rect width="800" height="450" fill="#fff"/>
+<g fill="none" stroke="#20221f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="220" y="105" width="365" height="240" rx="4"/><path d="M220 137 H585"/><circle cx="239" cy="121" r="3"/><circle cx="253" cy="121" r="3"/><circle cx="267" cy="121" r="3"/>
+<path d="M248 163 H437 M248 177 H405 M248 191 H422 M248 205 H380"/>
+<rect x="248" y="226" width="140" height="48" rx="3"/><path d="M261 240 H372 M261 253 H350"/>
+<rect x="420" y="165" width="136" height="109" rx="3"/><path d="M435 184 H540 M435 197 H525 M435 210 H540"/>
+<rect x="437" y="228" width="30" height="16" rx="8"/><circle cx="458" cy="236" r="6" fill="#c35e47" stroke="#c35e47"/>
+<circle cx="188" cy="218" r="12" fill="#20221f"/><path d="M188 230 L188 273 M188 243 L171 258 M188 244 L203 256 M188 273 L174 294 M188 273 L202 292" stroke-width="3"/>
+<circle cx="209" cy="211" r="34"/><path d="M234 237 L255 259" stroke-width="6"/>
+<path d="M266 282 L300 282 L308 292 L271 292 Z" fill="#657054" stroke="#657054"/>
+<path d="M600 168 L619 153 L633 167 L614 181 Z" stroke="#c35e47"/><path d="M616 184 L616 207" stroke="#c35e47"/>
+<path d="M584 245 C631 247 643 265 655 286" stroke-dasharray="4 7"/><path d="M646 278 L655 286 L656 274"/>
+</g>
+<g font-family="Courier New, monospace" font-size="15" letter-spacing="1">
+<text x="235" y="82" fill="#20221f">TEXT</text><text x="423" y="145" fill="#20221f">LAYOUT</text><text x="608" y="316" fill="#657054">FLOW</text>
+<text x="598" y="135" fill="#c35e47" transform="rotate(8 598 135)">check?</text>
+</g></svg>
