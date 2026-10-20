@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://laxmi-narayan-87.github.io/portfolio/</loc>
-  </url>
+  <url><loc>https://laxmi-narayan-87.github.io/portfolio/</loc></url>
+  <url><loc>https://laxmi-narayan-87.github.io/portfolio/projects/darksense-ai/</loc></url>
+  <url><loc>https://laxmi-narayan-87.github.io/portfolio/projects/skillforge-academy/</loc></url>
+  <url><loc>https://laxmi-narayan-87.github.io/portfolio/projects/agrovalue/</loc></url>
+  <url><loc>https://laxmi-narayan-87.github.io/portfolio/projects/q-learning-frozenlake/</loc></url>
+  <url><loc>https://laxmi-narayan-87.github.io/portfolio/projects/qa-automation/</loc></url>
 </urlset>
