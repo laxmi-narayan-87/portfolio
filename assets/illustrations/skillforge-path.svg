@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="title desc">
+<title id="title">A learning path that adapts</title><desc id="desc">A small black figure lays stepping stones along a branching learning path, with goal, learn, check, and next labels.</desc>
+<rect width="800" height="450" fill="#fff"/>
+<g fill="none" stroke="#20221f" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+<path d="M96 310 C167 275 190 333 261 300 S376 258 437 289 S548 335 625 278 S695 262 720 239" stroke-dasharray="5 7"/>
+<path d="M261 300 C315 333 335 360 390 359 S479 347 525 320" stroke-dasharray="4 8"/>
+<path d="M112 301 L155 286 L179 304 L136 321 Z"/><path d="M205 306 L247 291 L271 307 L230 323 Z"/>
+<path d="M329 277 L374 262 L401 280 L357 295 Z"/><path d="M452 289 L495 274 L521 292 L478 308 Z"/>
+<path d="M561 312 L604 297 L630 314 L587 330 Z"/><path d="M654 261 L691 248 L712 263 L675 276 Z"/>
+<circle cx="309" cy="223" r="10" fill="#20221f"/><path d="M309 233 L309 263 M309 241 L293 253 M309 242 L324 251 M309 263 L297 277 M309 263 L324 275" stroke-width="3"/>
+<path d="M326 251 L352 269"/><path d="M346 260 L360 271 L347 275 Z" fill="#c35e47" stroke="#c35e47"/>
+<path d="M553 213 L576 196 L596 212 L574 228 Z" stroke="#657054"/><path d="M574 228 L574 249" stroke="#657054"/>
+<path d="M575 195 L575 175 M575 175 L586 182 L575 188" stroke="#657054"/>
+<path d="M678 301 l16 11 l-16 11" stroke="#c35e47"/><path d="M685 312 H716" stroke="#c35e47"/>
+</g>
+<g font-family="Courier New, monospace" font-size="15" letter-spacing="1">
+<text x="95" y="269" fill="#20221f">GOAL</text><text x="326" y="242" fill="#20221f">LEARN</text><text x="453" y="257" fill="#20221f">CHECK</text><text x="630" y="229" fill="#20221f">NEXT</text>
+<text x="388" y="385" fill="#c35e47" transform="rotate(-4 388 385)">adjust the path</text>
+</g></svg>
