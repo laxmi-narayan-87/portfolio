@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="title desc">
+<title id="title">Curiosity into working software</title><desc id="desc">A small black figure completes a hand-built bridge from a question to an experiment and a working thing.</desc>
+<rect width="800" height="450" fill="#fff"/>
+<g fill="none" stroke="#20221f" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+<path d="M94 290 L169 276 L214 302 L137 320 Z"/><path d="M94 290 L92 310 L137 340 L137 320 M137 340 L214 322 L214 302"/>
+<path d="M305 290 L375 276 L425 300 L354 316 Z"/><path d="M305 290 L304 310 L354 337 L354 316 M354 337 L425 321 L425 300"/>
+<path d="M538 286 L615 272 L665 297 L588 314 Z"/><path d="M538 286 L538 308 L588 335 L588 314 M588 335 L665 319 L665 297"/>
+<path d="M180 292 L245 278 M226 286 L245 278 L238 294"/>
+<path d="M389 290 L495 279 M476 271 L495 279 L478 288"/>
+<path d="M211 302 L304 310 M425 300 L538 308" stroke-dasharray="4 7"/>
+<path d="M229 297 l24 -5 l22 8 l-23 6 Z M254 306 l24 -5 l22 8 l-23 6 Z"/>
+<path d="M445 300 l24 -5 l22 8 l-23 6 Z M470 309 l24 -5 l22 8 l-23 6 Z"/>
+<circle cx="343" cy="237" r="10" fill="#20221f"/><path d="M343 247 L343 276 M343 256 L326 268 M343 257 L357 269 M343 276 L331 292 M343 276 L355 290" stroke-width="3"/>
+<path d="M357 269 L381 286"/><path d="M377 278 L391 289 L379 294 Z" fill="#d16a51" stroke="#d16a51"/>
+<path d="M319 295 L334 296 M350 293 L363 296"/>
+</g>
+<g font-family="Courier New, monospace" font-size="15" letter-spacing="1">
+<text x="95" y="250" fill="#20221f">QUESTION</text><text x="305" y="248" fill="#20221f">EXPERIMENT</text><text x="538" y="246" fill="#20221f">WORKING THING</text>
+<text x="410" y="357" fill="#c35e47" transform="rotate(-5 410 357)">try it</text><text x="264" y="225" fill="#657054" transform="rotate(5 264 225)">learn</text>
+</g></svg>
