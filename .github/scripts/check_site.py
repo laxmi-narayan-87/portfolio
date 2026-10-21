@@ -57,6 +57,26 @@ required_pages = [
 for page in required_pages:
     checks[f"case study exists: {page}"] = (ROOT / page).is_file()
 
+# Production must remain indexable and canonicalized only to the original portfolio.
+production_pages = {"index.html": BASE_URL}
+for page in required_pages:
+    production_pages[page] = BASE_URL + page.removesuffix("/index.html") + "/"
+
+for page, expected_url in production_pages.items():
+    page_path = ROOT / page
+    if not page_path.is_file():
+        continue
+    page_html = page_path.read_text(encoding="utf-8")
+    robots_values = re.findall(r'<meta\\s+name="robots"\\s+content="([^"]+)"', page_html, re.I)
+    canonical_values = re.findall(r'<link\\s+rel="canonical"\\s+href="([^"]+)"', page_html, re.I)
+    og_url = re.search(r'<meta\\s+property="og:url"\\s+content="([^"]+)"', page_html, re.I)
+    checks[f"production robots index, follow: {page}"] = robots_values == ["index, follow"]
+    checks[f"production canonical matches original URL: {page}"] = canonical_values == [expected_url]
+    checks[f"production Open Graph URL matches original URL: {page}"] = bool(og_url and og_url.group(1) == expected_url)
+    checks[f"production page excludes staging URL: {page}"] = "CL-PORT/staging-portfolio/" not in page_html
+    if page == "index.html":
+        checks["production structured-data URL matches original URL"] = f'"url": "{expected_url}"' in page_html
+
 try:
     tree = ET.parse(SITEMAP)
     ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
