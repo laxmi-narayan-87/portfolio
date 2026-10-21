@@ -67,9 +67,9 @@ for page, expected_url in production_pages.items():
     if not page_path.is_file():
         continue
     page_html = page_path.read_text(encoding="utf-8")
-    robots_values = re.findall(r'<meta\\s+name="robots"\\s+content="([^"]+)"', page_html, re.I)
-    canonical_values = re.findall(r'<link\\s+rel="canonical"\\s+href="([^"]+)"', page_html, re.I)
-    og_url = re.search(r'<meta\\s+property="og:url"\\s+content="([^"]+)"', page_html, re.I)
+    robots_values = re.findall(r'<meta\s+name="robots"\s+content="([^"]+)"', page_html, re.I)
+    canonical_values = re.findall(r'<link\s+rel="canonical"\s+href="([^"]+)"', page_html, re.I)
+    og_url = re.search(r'<meta\s+property="og:url"\s+content="([^"]+)"', page_html, re.I)
     checks[f"production robots index, follow: {page}"] = robots_values == ["index, follow"]
     checks[f"production canonical matches original URL: {page}"] = canonical_values == [expected_url]
     checks[f"production Open Graph URL matches original URL: {page}"] = bool(og_url and og_url.group(1) == expected_url)
